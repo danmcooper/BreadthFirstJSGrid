@@ -40,14 +40,35 @@ class Location {
 
   isEnd() {
     return (
+      this.isInRange() &&
       Location.grid[this.distanceFromTop][this.distanceFromLeft] === GRID.END
     );
   }
 
   isEmpty() {
     return (
+      this.isInRange() &&
       Location.grid[this.distanceFromTop][this.distanceFromLeft] === GRID.EMPTY
     );
+  }
+
+  goDirection(direction) {
+    const newPath = this.path.concat(direction);
+
+    let newDft = this.distanceFromTop;
+    let newDfl = this.distanceFromLeft;
+
+    if (direction === DIR.UP) {
+      newDft -= 1;
+    } else if (direction === DIR.RIGHT) {
+      newDfl += 1;
+    } else if (direction === DIR.DOWN) {
+      newDft += 1;
+    } else if (direction === DIR.LEFT) {
+      newDfl -= 1;
+    }
+
+    return new Location(newDft, newDfl, newPath);
   }
 }
 
@@ -62,38 +83,17 @@ const findShortestPath = (startCoordinates, grid) => {
     currentLocation.visit();
 
     for (let key in DIR) {
-      const newLocation = goDirection(currentLocation, DIR[key], grid);
-      if (newLocation.isInRange()) {
-        if (newLocation.isEnd()) {
-          return newLocation.path;
-        }
-        if (newLocation.isEmpty()) {
-          queue.push(newLocation);
-        }
+      const newLocation = currentLocation.goDirection(DIR[key]);
+      if (newLocation.isEnd()) {
+        return newLocation.path;
+      }
+      if (newLocation.isEmpty()) {
+        queue.push(newLocation);
       }
     }
   }
 
   return false;
-};
-
-const goDirection = (currentLocation, direction) => {
-  const newPath = currentLocation.path.concat(direction);
-
-  let newDft = currentLocation.distanceFromTop;
-  let newDfl = currentLocation.distanceFromLeft;
-
-  if (direction === DIR.UP) {
-    newDft -= 1;
-  } else if (direction === DIR.RIGHT) {
-    newDfl += 1;
-  } else if (direction === DIR.DOWN) {
-    newDft += 1;
-  } else if (direction === DIR.LEFT) {
-    newDfl -= 1;
-  }
-
-  return new Location(newDft, newDfl, newPath);
 };
 
 // prettier-ignore
