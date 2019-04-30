@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/danmcooper/BreadthFirstJSGrid.git"
+    "url": "git+https://github.com/danmcooper/bfs-grid.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/danmcooper/BreadthFirstJSGrid/issues"
+    "url": "https://github.com/danmcooper/bfs-grid/issues"
   },
-  "homepage": "https://github.com/danmcooper/BreadthFirstJSGrid#readme"
+  "homepage": "https://github.com/danmcooper/bfs-grid#readme"
 }
