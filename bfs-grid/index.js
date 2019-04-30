@@ -4,10 +4,9 @@ const { Location } = require("./location");
 const findShortestPath = (startCoordinates, grid) => {
   Location.grid = grid;
 
-  const location = new Location(startCoordinates[0], startCoordinates[1], []);
-  let queue = [location];
+  let queue = [new Location(startCoordinates[0], startCoordinates[1], [])];
 
-  while (queue.length > 0) {
+  while (queue.length) {
     const currentLocation = queue.shift();
     currentLocation.visit();
 
